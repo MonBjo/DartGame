@@ -37,7 +37,7 @@ namespace DartGame {
 
         private string PrintTurns() { // Todo: Print the last round when finished.
 
-            int foo = 0;
+            string foo = "noo";
             return foo;
         }
     }
