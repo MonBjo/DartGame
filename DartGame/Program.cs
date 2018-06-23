@@ -295,8 +295,8 @@ namespace DartGame {
             return totalPoints;
         }
         //      Adds a turn for the player
-        public void AddTurn(int one, int two, int three) {
-            Turns turn = new Turns(one, two, three);
+        public void AddTurn(int arrowOne, int arrowTwo, int arrowThree) {
+            Turns turn = new Turns(arrowOne, arrowTwo, three);
             allTurns.Add(turn);
         }
 
