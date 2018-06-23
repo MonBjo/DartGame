@@ -286,10 +286,6 @@ namespace DartGame {
             get { return playerScore; }
             set { playerScore = value; }
         }
-        //      It makes more sense in the context to return the players name
-        public override string ToString() {
-            return Name;
-        }
         //      Calculate the total points for the player
         public int CalculatePoints() {
             int totalPoints = 0;
@@ -316,6 +312,10 @@ namespace DartGame {
             foreach(Turns oneTurn in allTurns) {
                 Console.WriteLine(oneTurn);
             }
+        }
+        //      It makes more sense in the context to return the players name
+        public override string ToString() {
+            return Name;
         }
     }
 
@@ -348,14 +348,14 @@ namespace DartGame {
                 arrowThree = value;
             }
         }
+        //      Calculates the score for one turn
+        public int GetScore {
+            get { return ArrowOne + ArrowTwo + ArrowThree; }
+        }
         //      It makes more sense in the context to return this string
         public override string ToString() {
             string myString =$" {ArrowOne}, {ArrowTwo} and {ArrowThree}";
             return myString;
-        }
-        //      Calculates the score for one turn
-        public int GetScore {
-            get { return ArrowOne + ArrowTwo + ArrowThree; }
         }
     }
 }
