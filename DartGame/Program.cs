@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DartGame {
     class Program {
@@ -296,7 +294,7 @@ namespace DartGame {
         }
         //      Adds a turn for the player
         public void AddTurn(int arrowOne, int arrowTwo, int arrowThree) {
-            Turns turn = new Turns(arrowOne, arrowTwo, three);
+            Turns turn = new Turns(arrowOne, arrowTwo, arrowThree);
             allTurns.Add(turn);
         }
 

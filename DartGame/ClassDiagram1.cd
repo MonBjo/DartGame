@@ -1,2 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="DartGame.Program">
+    <Position X="1.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DartGame.Game">
+    <Position X="5.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAEAAAAAAABAAAAAAAAAAAAAAAAIAgAAAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DartGame.Player">
+    <Position X="0.5" Y="2.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgCEAAAAAAQABQAEAAAABAAAAIAAAIA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DartGame.Turns">
+    <Position X="4.75" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAABAAIEAQAAAAAAAAAAAAAAAAAAggAAAEI=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
