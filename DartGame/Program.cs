@@ -26,111 +26,14 @@ namespace DartGame {
                 switch(userInputMenu.Key) {
                     // Start the game
                     case ConsoleKey.S: {
-                        bool continueGame = true;
-                        while(true) {
-                            if(!players.Any()) {
-                                Console.Clear();
-                                Console.WriteLine("Please add players");
-                                break;
-                            }
-                            else if(!continueGame) {
-                                break;
-                            }
-                            foreach(Player aPlayer in players) {
-                                // Defining data
-                                int throwOne = 0;
-                                int throwTwo = 0;
-                                int throwThree = 0;
-                                int highestPoint = 20;
-                                int winningPoint = 301;
-
-                                Console.Clear();
-                                Console.WriteLine($"It's {aPlayer.Name}'s turn with a total score of {aPlayer.CalculatePoints()}!");
-                                if(aPlayer.Name == "Computer") {
-                                    Random randomThrow = new Random();
-                                    throwOne = randomThrow.Next(0, highestPoint);
-                                    throwTwo = randomThrow.Next(0, highestPoint);
-                                    throwThree = randomThrow.Next(0, highestPoint);
-                                    Console.WriteLine($"First throw: {throwOne}\n" +
-                                                      $"First throw: {throwTwo}\n" +
-                                                      $"First throw: {throwThree}");
-                                }
-                                else {
-                                    Console.WriteLine($"Write an integer bewteen 0 and {highestPoint} to choose your hit");
-                                    // first throw
-                                    while(true) {
-                                        Console.Write("First throw: ");
-                                        try {
-                                            throwOne = Convert.ToInt32(Console.ReadLine());
-                                            if(throwOne < 0 || throwOne > highestPoint) {
-                                                Console.WriteLine("Please write an integer between 0 and " + highestPoint);
-                                            }
-                                            else {
-                                                break; // Successful input
-                                            }
-                                        }
-                                        catch(FormatException) {
-                                            Console.WriteLine("Please write an integer");
-                                        }
-                                        catch(Exception e) {
-                                            Console.WriteLine(e.Message);
-                                        }
-                                    }
-                                    // second throw
-                                    while(true) {
-                                    Console.Write("Second throw: ");
-                                        try {
-                                            throwTwo = Convert.ToInt32(Console.ReadLine());
-                                            if(throwTwo < 0 || throwTwo > highestPoint) {
-                                                Console.WriteLine("Please write an integer between 0 and " + highestPoint);
-                                            }
-                                            else {
-                                                break; // Successful input
-                                            }
-                                        }
-                                        catch(FormatException) {
-                                            Console.WriteLine("Please write an integer");
-                                        }
-                                        catch(Exception e) {
-                                            Console.WriteLine(e.Message);
-                                        }
-                                    }
-                                    // third throw
-                                    while(true) {
-                                    Console.Write("Thrid throw: ");
-                                        try {
-                                            throwThree = Convert.ToInt32(Console.ReadLine());
-                                            if(throwThree < 0 || throwThree > highestPoint) {
-                                                Console.WriteLine("Please write an integer between 0 and " + highestPoint);
-                                            }
-                                            else {
-                                                break; // Successful input
-                                            }
-                                        }
-                                        catch(FormatException) {
-                                            Console.WriteLine("Please write an integer");
-                                        }
-                                        catch(Exception e) {
-                                            Console.WriteLine(e.Message);
-                                        }
-                                    }
-                                }
-                                aPlayer.AddTurn(throwOne, throwTwo, throwThree);
-                                aPlayer.PrintTurn();
-                                Console.WriteLine("==============================\n" +
-                                          " Press any key to continue...");
-                                Console.ReadKey(true);
-
-                                if(aPlayer.CalculatePoints() >= winningPoint && continueGame == true) {
-                                    Console.WriteLine($"Congratulations {aPlayer.Name}!\n" +
-                                                      $"You won with {aPlayer.CalculatePoints()}!");
-                                    continueGame = false;
-                                }
-                            }
+                        if(!players.Any()) {
+                            Console.Clear();
+                            Console.WriteLine("Please add players");
+                            break;
                         }
-                        Console.WriteLine("==============================\n" +
-                                          " Press any key to continue...");
-                        Console.ReadKey(true);
+                        else {
+                            DartGame();
+                        }
                         break;
                     }
                     // Add new player
@@ -146,51 +49,12 @@ namespace DartGame {
                             switch(userInputSubMenu.Key) {
                                 // Add a friend as player
                                 case ConsoleKey.F: {
-                                    Console.Clear();
-                                    string newName = "";
-                                    while(true) {
-                                        Console.Write("Name of new player: ");
-                                        try {
-                                            newName = Console.ReadLine();
-                                        }
-                                        catch(Exception e) {
-                                            Console.WriteLine(e.Message);
-                                        }
-
-                                        if(String.IsNullOrWhiteSpace(newName)) {
-                                            Console.WriteLine("You never enterd a name, please try again.");
-                                        }
-                                        else {
-                                            AddPlayer(newName);
-                                            Console.WriteLine("The new player was added");
-                                            break; // Sucessful input
-                                        }
-                                    }
-                                    Console.WriteLine("===========================\n" +
-                                          " Press any key to continue");
-                                    Console.ReadKey(true);
+                                    AddPlayer();
                                     break;
                                 }
                                 // Add a computer as player
                                 case ConsoleKey.C: {
-                                    Console.Clear();
-                                    bool isComputerInPlayerlist = false;
-                                    for(int i = 0; i < players.Count; i++) {
-                                        if(players[i].Name == "Computer") {
-                                            isComputerInPlayerlist = true;
-                                            break;
-                                        }
-                                    }
-                                    if(isComputerInPlayerlist == true) {
-                                        Console.WriteLine("The Computer is alredy in the playerlist");
-                                    }
-                                    else {
-                                        AddPlayer();
-                                        Console.WriteLine("The Computer was added as a player");
-                                    }
-                                    Console.WriteLine("===========================\n" +
-                                          " Press any key to continue");
-                                    Console.ReadKey(true);
+                                    AddPlayer("Computer");
                                     break;
                                 }
                                 // Return to main menu
@@ -207,16 +71,6 @@ namespace DartGame {
                         }
                         break;
                     }
-                    /*/ Debug info
-                    case ConsoleKey.L: {
-                        foreach(Player aPlayer in players) {
-                            Console.WriteLine(aPlayer.Name);
-                            
-                        }
-                        Console.ReadKey(true);
-                        break;
-                    }
-                    //*/
                     // Quit game, close console.
                     case ConsoleKey.Q: {
                         Environment.Exit(0);
@@ -229,14 +83,166 @@ namespace DartGame {
                 }
             }
         }
+        // The actual game
+        private void DartGame() {
+            bool continueGame = true;
+            while(true) {
+                if(!continueGame) {
+                    break;
+                }
+                foreach(Player aPlayer in players) {
+                    // Defining data
+                    int throwOne = 0;
+                    int throwTwo = 0;
+                    int throwThree = 0;
+                    int highestPoint = 20;
+                    int winningPoint = 301;
 
-        private void AddPlayer(string name) {
-            Player player = new Player(name);
-            players.Add(player);
+                    Console.Clear();
+                    Console.WriteLine($"It's {aPlayer.Name}'s turn with a total score of {aPlayer.CalculatePoints()}!");
+
+                    // Computer's game
+                    if(aPlayer.Name == "Computer") {
+                        Random randomThrow = new Random();
+                        throwOne = randomThrow.Next(0, highestPoint);
+                        throwTwo = randomThrow.Next(0, highestPoint);
+                        throwThree = randomThrow.Next(0, highestPoint);
+
+                        Console.WriteLine($"First throw:  {throwOne}\n" +
+                                          $"Second throw: {throwTwo}\n" +
+                                          $"Third throw:  {throwThree}");
+                    }
+                    
+                    // People's game
+                    else {
+                        Console.WriteLine($"Write an integer bewteen 0 and {highestPoint} to choose your hit\n");
+                        // first throw
+                        while(true) {
+                            Console.Write("First throw:  ");
+                            try {
+                                throwOne = Convert.ToInt32(Console.ReadLine());
+                                if(throwOne < 0 || throwOne > highestPoint) {
+                                    Console.WriteLine("Please write an integer between 0 and " + highestPoint);
+                                }
+                                else {
+                                    break; // Successful input
+                                }
+                            }
+                            catch(FormatException) {
+                                Console.WriteLine("Please write an integer");
+                            }
+                            catch(Exception e) {
+                                Console.WriteLine(e.Message);
+                            }
+                        }
+                        // second throw
+                        while(true) {
+                            Console.Write("Second throw: ");
+                            try {
+                                throwTwo = Convert.ToInt32(Console.ReadLine());
+                                if(throwTwo < 0 || throwTwo > highestPoint) {
+                                    Console.WriteLine("Please write an integer between 0 and " + highestPoint);
+                                }
+                                else {
+                                    break; // Successful input
+                                }
+                            }
+                            catch(FormatException) {
+                                Console.WriteLine("Please write an integer");
+                            }
+                            catch(Exception e) {
+                                Console.WriteLine(e.Message);
+                            }
+                        }
+                        // third throw
+                        while(true) {
+                            Console.Write("Thrid throw:  ");
+                            try {
+                                throwThree = Convert.ToInt32(Console.ReadLine());
+                                if(throwThree < 0 || throwThree > highestPoint) {
+                                    Console.WriteLine("Please write an integer between 0 and " + highestPoint);
+                                }
+                                else {
+                                    break; // Successful input
+                                }
+                            }
+                            catch(FormatException) {
+                                Console.WriteLine("Please write an integer");
+                            }
+                            catch(Exception e) {
+                                Console.WriteLine(e.Message);
+                            }
+                        }
+                    }
+                    aPlayer.AddTurn(throwOne, throwTwo, throwThree);
+                    aPlayer.PrintTurn();
+
+                    Console.WriteLine("==============================\n" +
+                                " Press any key to continue...");
+                    Console.ReadKey(true);
+
+                    if(aPlayer.CalculatePoints() >= winningPoint && continueGame) {
+                        Console.WriteLine($"Congratulations {aPlayer.Name}!\n" +
+                                            $"You won with {aPlayer.CalculatePoints()}!");
+                        continueGame = false;
+                    }
+                }
+            }
         }
+
+        // Add a new player
         private void AddPlayer() {
-            Player player = new Player("Computer");
-            players.Add(player);
+            Console.Clear();
+            // Defining data
+            string newName = "";
+
+            while(true) {
+                Console.Write("Name of new player: ");
+                try {
+                    newName = Console.ReadLine();
+                }
+                catch(Exception e) {
+                    Console.WriteLine(e.Message);
+                }
+
+                if(String.IsNullOrWhiteSpace(newName)) {
+                    Console.WriteLine("You never enterd a name, please try again.");
+                }
+                else {
+                    Player player = new Player(newName);
+                    players.Add(player);
+                    Console.WriteLine("The new player was added");
+                    break; // Sucessful input
+                }
+            }
+            Console.WriteLine("===========================\n" +
+                  " Press any key to continue");
+            Console.ReadKey(true);
+        }
+
+        // Add the computer as a player
+        private void AddPlayer(string name) {
+            Console.Clear();
+            bool isComputerInPlayerlist = false;
+            
+
+            for(int i = 0; i < players.Count; i++) {
+                if(players[i].Name == "Computer") {
+                    isComputerInPlayerlist = true;
+                    break;
+                }
+            }
+            if(isComputerInPlayerlist) {
+                Console.WriteLine("The Computer is alredy in the playerlist");
+            }
+            else {
+                Player player = new Player("Computer");
+                players.Add(player);
+                Console.WriteLine("The Computer was added as a player");
+            }
+            Console.WriteLine("===========================\n" +
+                  " Press any key to continue");
+            Console.ReadKey(true);
         }
     }
 
