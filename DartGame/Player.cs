@@ -19,18 +19,20 @@ namespace DartGame {
             get { return name; }
             set { name = value; }
         }
-        //* NOTE Not needed?? This is confusing AF
+        // NOTE Not needed?? This is confusing AF
         public int PlayerScore {
             get { return playerScore; }
             set { playerScore = value; }
-        }//*/
+        }
         //      Calculate the total points for the player
         public int CalculatePoints() {
-            int totalPoints = 301; // TODO Make it count down instead
+            int foo = 0; // TODO Make it count down instead
             foreach(Turns oneTurn in allTurns) {
-                totalPoints -= oneTurn.GetScore;
+                foo += oneTurn.GetScore;
             }
-            return totalPoints;
+            PlayerScore = foo;
+            return foo;
+            
         }
         //      Adds a turn for the player
         public void AddTurn(int arrowOne, int arrowTwo, int arrowThree) {
@@ -42,7 +44,7 @@ namespace DartGame {
             allTurns.Clear();
         }
         public void ClearLastTurn() {
-            allTurns.RemoveAt(allTurns.Count - 1);
+            allTurns.RemoveAt((allTurns.Count - 1));
         }
 
         public void PrintLastTurn() {

@@ -40,7 +40,8 @@ namespace DartGame {
         }
         //      It makes more sense in the context to return this string
         public override string ToString() {
-            string myString =$" {ArrowOne}, {ArrowTwo} and {ArrowThree}";
+            string myString =$" {ArrowOne}, {ArrowTwo} and {ArrowThree} \n" +
+                             $"Total: {GetScore}";
             return myString;
         }
     }

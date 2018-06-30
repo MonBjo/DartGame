@@ -8,7 +8,8 @@ namespace DartGame {
     class Game {
         //      Defining data
         private List<Player> players = new List<Player>();
-        string computerAsPlayer = "Computer";
+        string computerAsPlayer = "Computer"; 
+        // NOTE: If you change name, do not let it start with "A" or "R" as they're already used in the menu.
 
         //      Start of the game, basicly the menu
         public void PlayGame() {
@@ -73,7 +74,7 @@ namespace DartGame {
                     }
                     //      Show the rules
                     case ConsoleKey.R: { // TODO add rules
-                        Console.WriteLine("Some rules");
+                        Console.WriteLine("Some rules, yo.");
                         break;
                     }
                     //      Quit game, close console.
@@ -101,9 +102,11 @@ namespace DartGame {
                     int throwTwo = 0;
                     int throwThree = 0;
                     int highestPoint = 20;
+                    int pointsToWin = 301;
 
                     Console.Clear();
-                    Console.WriteLine($"It's {aPlayer.Name}'s turn with {aPlayer.CalculatePoints()} points left to win!");
+                    aPlayer.CalculatePoints()
+                    Console.WriteLine($"It's {aPlayer.Name}'s turn with {(pointsToWin - aPlayer.PlayerScore)} points left!");
 
                     //      Computer's game
                     if(aPlayer.Name == computerAsPlayer) {
@@ -183,21 +186,20 @@ namespace DartGame {
                     Console.Write("Throws on this turn: ");
                     aPlayer.PrintLastTurn();
 
+                    if(aPlayer.PlayerScore > pointsToWin && continueGame) {
+                        Console.WriteLine("Your score got bust");
+                        aPlayer.ClearLastTurn(); // TODO: Something is odd about this
+                    }
+
+                    else if(aPlayer.PlayerScore == pointsToWin && continueGame) {
+                        Console.Clear();
+                        Console.WriteLine($"Congratulations {aPlayer.Name}! You won!");
+                        continueGame = false;
+                    }
+
                     Console.WriteLine("==============================\n" +
                                       " Press any key to continue...");
                     Console.ReadKey(true);
-
-                    if(aPlayer.CalculatePoints() > 0 && continueGame) { // TODO if a player gets 0.
-                        Console.WriteLine("Your score got bust");
-                        aPlayer.ClearLastTurn();
-                    }
-
-                    else if(aPlayer.CalculatePoints() == 0 && continueGame) {
-                        Console.Clear();
-                        Console.WriteLine($"Congratulations {aPlayer.Name}!\n" +
-                                            $"You won with {aPlayer.CalculatePoints()}!");
-                        continueGame = false;
-                    }
                 }
             }
             if(!continueGame) {
