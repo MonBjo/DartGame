@@ -105,7 +105,7 @@ namespace DartGame {
                     int pointsToWin = 301;
 
                     Console.Clear();
-                    aPlayer.CalculatePoints()
+                    aPlayer.CalculatePoints(); // Calculate points for each turn
                     Console.WriteLine($"It's {aPlayer.Name}'s turn with {(pointsToWin - aPlayer.PlayerScore)} points left!");
 
                     //      Computer's game
@@ -185,6 +185,7 @@ namespace DartGame {
 
                     Console.Write("Throws on this turn: ");
                     aPlayer.PrintLastTurn();
+                    aPlayer.CalculatePoints(); // So the if statements get the corret numbers to work with
 
                     if(aPlayer.PlayerScore > pointsToWin && continueGame) {
                         Console.WriteLine("Your score got bust");
