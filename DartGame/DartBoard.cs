@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace DartGame {
     class DartBoard {
+        public int HitOnDartBoard() {
+            Random rnd = new Random();
+            int foo = rnd.Next(100);
+            
+            if(foo >= 60) {
 
+            }
+
+            return 4;
+        }
     }
 }
 /* TODO Make a dart board

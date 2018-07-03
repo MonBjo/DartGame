@@ -8,9 +8,9 @@ namespace DartGame {
     class Game {
         //      Defining data
         private List<Player> players = new List<Player>();
-        string computerAsPlayer = "Computer"; 
+        string computerAsPlayer = "Computer";
         // NOTE: If you change name, do not let it start with "A" or "R" as they're already used in the menu.
-
+        
         //      Start of the game, basicly the menu
         public void PlayGame() {
             while(true) {
@@ -74,7 +74,21 @@ namespace DartGame {
                     }
                     //      Show the rules
                     case ConsoleKey.R: { // TODO add rules
-                        Console.WriteLine("Some rules, yo.");
+                        Console.WriteLine("====== Rules ====== \n" +
+                                          "  When playing dart, you start with 301 points.    \n" +
+                                          "  Your goal is to get rid of them as fast as       \n" +
+                                          "  possible, or at least faster than your opponent. \n" +
+                                          "   \n" +
+                                          "  When you throw a dart, you will be able to aim   \n" +
+                                          "  for 1 to 20 points, end with [ENTER]. If you get \n" +
+                                          "  0 points you have missed the dartboard completly,\n" +
+                                          "  or you didn't throw at all.                      \n" +
+                                          "  To throw randomly, do not write anything and just\n" +
+                                          "  press [ENTER].");
+
+                        Console.WriteLine(" ==============================\n" +
+                                          "  Press any key to continue...");
+                        Console.ReadKey(true);
                         break;
                     }
                     //      Quit game, close console.
@@ -89,7 +103,7 @@ namespace DartGame {
                 }
             }
         }
-        //      The actual game
+        //      The actual game // TODO: Make bigger
         private void DartGame() {
             bool continueGame = true;
             while(true) {
@@ -101,7 +115,7 @@ namespace DartGame {
                     int throwOne = 0;
                     int throwTwo = 0;
                     int throwThree = 0;
-                    int highestPoint = 20;
+                    int highestPoint = 20; // TODO: same as the magic number in player.cs
                     int pointsToWin = 301;
 
                     Console.Clear();
@@ -123,63 +137,9 @@ namespace DartGame {
                     //      People's game
                     else {
                         Console.WriteLine($"Write an integer bewteen 0 and {highestPoint} to choose your hit\n");
-
-                        while(true) {
-                            Console.Write("First throw:  ");
-                            try {
-                                throwOne = Convert.ToInt32(Console.ReadLine());
-                                if(throwOne < 0 || throwOne > highestPoint) {
-                                    Console.WriteLine("Please write an integer between 0 and " + highestPoint);
-                                }
-                                else {
-                                    break; // Successful input
-                                }
-                            }
-                            catch(FormatException) {
-                                Console.WriteLine("Please write an integer");
-                            }
-                            catch(Exception e) {
-                                Console.WriteLine(e.Message);
-                            }
-                        }
-
-                        while(true) {
-                            Console.Write("Second throw: ");
-                            try {
-                                throwTwo = Convert.ToInt32(Console.ReadLine());
-                                if(throwTwo < 0 || throwTwo > highestPoint) {
-                                    Console.WriteLine("Please write an integer between 0 and " + highestPoint);
-                                }
-                                else {
-                                    break; // Successful input
-                                }
-                            }
-                            catch(FormatException) {
-                                Console.WriteLine("Please write an integer");
-                            }
-                            catch(Exception e) {
-                                Console.WriteLine(e.Message);
-                            }
-                        }
-
-                        while(true) {
-                            Console.Write("Thrid throw:  ");
-                            try {
-                                throwThree = Convert.ToInt32(Console.ReadLine());
-                                if(throwThree < 0 || throwThree > highestPoint) {
-                                    Console.WriteLine("Please write an integer between 0 and " + highestPoint);
-                                }
-                                else {
-                                    break; // Successful input
-                                }
-                            }
-                            catch(FormatException) {
-                                Console.WriteLine("Please write an integer");
-                            }
-                            catch(Exception e) {
-                                Console.WriteLine(e.Message);
-                            }
-                        }
+                            throwOne = aPlayer.AddThrow("First throw:  ");
+                            throwTwo = aPlayer.AddThrow("Second throw: ");
+                            throwThree = aPlayer.AddThrow("Third throw:  ");
                     }
                     aPlayer.AddTurn(throwOne, throwTwo, throwThree);
 
@@ -215,7 +175,7 @@ namespace DartGame {
                 }
             }
         }
-        //      Add a new player
+        //      Add a new player // TODO: Make bigger
         private void AddPlayer() {
             Console.Clear();
             // Defining data

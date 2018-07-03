@@ -34,7 +34,39 @@ namespace DartGame {
             return foo;
             
         }
-        //      Adds a turn for the player
+
+        public int AddThrow(string foo) {
+            int arrowInt;
+            while(true) {
+                Console.Write(foo);
+
+                string userInput = Console.ReadLine();
+                if(userInput.Length == 0) {
+                    //TODO: A method that makes a random throw
+                    arrowInt = 0;
+                    break;
+                }
+                else {
+                    try {
+                        arrowInt = Convert.ToInt32(userInput);
+                        if(arrowInt < 0 || arrowInt > 20) { // TODO: Remove magic number
+                            Console.WriteLine("Please write an integer between 0 and " + 20);
+                        }
+                        else {
+                            break; // Successful input
+                        }
+                    }
+                    catch(FormatException) {
+                        Console.WriteLine("Please write an integer");
+                    }
+                    catch(Exception e) {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
+            return arrowInt;
+        }
+
         public void AddTurn(int arrowOne, int arrowTwo, int arrowThree) {
             Turns turn = new Turns(arrowOne, arrowTwo, arrowThree);
             allTurns.Add(turn);
