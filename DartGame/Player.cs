@@ -10,6 +10,7 @@ namespace DartGame {
         private List<Turns> allTurns = new List<Turns>();
         private string name = "no name";
         private int playerScore = 0;
+        DartBoard playerDartBoard;
 
         public Player(string _name) {
             this.Name = _name;
@@ -35,10 +36,10 @@ namespace DartGame {
             
         }
 
-        public int AddThrow(string foo) {
+        public int AddThrow(string instructionString) {
             int arrowInt;
             while(true) {
-                Console.Write(foo);
+                Console.Write(instructionString);
 
                 string userInput = Console.ReadLine();
                 if(userInput.Length == 0) {
@@ -53,6 +54,7 @@ namespace DartGame {
                             Console.WriteLine("Please write an integer between 0 and " + 20);
                         }
                         else {
+                            new DartBoard(arrowInt);
                             break; // Successful input
                         }
                     }
