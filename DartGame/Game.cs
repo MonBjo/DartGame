@@ -8,7 +8,7 @@ namespace DartGame {
     class Game {
         //      Defining data
         private List<Player> players = new List<Player>();
-        string computerAsPlayer = "Computer";
+        internal static string computerAsPlayer = "Computer";
         // NOTE: If you change name, do not let it start with "A" or "R" as they're already used in the menu.
         
         //      Start of the game, basicly the menu
@@ -73,7 +73,7 @@ namespace DartGame {
                         break;
                     }
                     //      Show the rules
-                    case ConsoleKey.R: { // TODO add rules
+                    case ConsoleKey.R: {
                         Console.WriteLine("====== Rules ====== \n" +
                                           "  When playing dart, you start with 301 points.    \n" +
                                           "  Your goal is to get rid of them as fast as       \n" +
@@ -115,7 +115,7 @@ namespace DartGame {
                     int throwOne = 0;
                     int throwTwo = 0;
                     int throwThree = 0;
-                    int highestPoint = 20; // TODO: same as the magic number in player.cs
+                    //int highestPoint = 20; // TODO: same as the magic number in player.cs
                     int pointsToWin = 301;
 
                     Console.Clear();
@@ -124,19 +124,17 @@ namespace DartGame {
 
                     //      Computer's game
                     if(aPlayer.Name == computerAsPlayer) {
-                        Random randomThrow = new Random();
-                        throwOne = randomThrow.Next(0, highestPoint);
-                        throwTwo = randomThrow.Next(0, highestPoint);
-                        throwThree = randomThrow.Next(0, highestPoint);
-
+                        Random rnd = new Random();
+                        throwOne = rnd.Next(Player.highestPoint);
+                        throwTwo = rnd.Next(Player.highestPoint);
+                        throwThree = rnd.Next(Player.highestPoint);
                         Console.WriteLine($"First throw:  {throwOne}\n" +
                                           $"Second throw: {throwTwo}\n" +
                                           $"Third throw:  {throwThree}");
                     }
-
                     //      People's game
                     else {
-                        Console.WriteLine($"Write an integer bewteen 0 and {highestPoint} to choose your hit\n");
+                        Console.WriteLine($"Write an integer bewteen 0 and {Player.highestPoint} to choose your hit\n");
                             throwOne = aPlayer.AddThrow("First throw:  ");
                             throwTwo = aPlayer.AddThrow("Second throw: ");
                             throwThree = aPlayer.AddThrow("Third throw:  ");
@@ -149,7 +147,7 @@ namespace DartGame {
 
                     if(aPlayer.PlayerScore > pointsToWin && continueGame) {
                         Console.WriteLine("Your score got bust");
-                        aPlayer.ClearLastTurn(); // TODO: Something is odd about this
+                        aPlayer.ClearLastTurn(); 
                     }
 
                     else if(aPlayer.PlayerScore == pointsToWin && continueGame) {

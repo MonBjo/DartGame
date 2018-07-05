@@ -10,7 +10,7 @@ namespace DartGame {
         private List<Turns> allTurns = new List<Turns>();
         private string name = "no name";
         private int playerScore = 0;
-        DartBoard playerDartBoard;
+        internal static int highestPoint = 20;
 
         public Player(string _name) {
             this.Name = _name;
@@ -27,7 +27,7 @@ namespace DartGame {
         }
         //      Calculate the total points for the player
         public int CalculatePoints() {
-            int foo = 0; // TODO Make it count down instead
+            int foo = 0;
             foreach(Turns oneTurn in allTurns) {
                 foo += oneTurn.GetScore;
             }
@@ -43,18 +43,18 @@ namespace DartGame {
 
                 string userInput = Console.ReadLine();
                 if(userInput.Length == 0) {
-                    //TODO: A method that makes a random throw
-                    arrowInt = 0;
+                    Random randomThrow = new Random();
+                    arrowInt = randomThrow.Next(highestPoint);
                     break;
                 }
                 else {
                     try {
                         arrowInt = Convert.ToInt32(userInput);
-                        if(arrowInt < 0 || arrowInt > 20) { // TODO: Remove magic number
-                            Console.WriteLine("Please write an integer between 0 and " + 20);
+                        if(arrowInt < 0 || arrowInt > highestPoint) { 
+                            Console.WriteLine("Please write an integer between 0 and " + highestPoint);
                         }
                         else {
-                            new DartBoard(arrowInt);
+                            DartBoard playerDartBoard = new DartBoard(arrowInt);
                             break; // Successful input
                         }
                     }
@@ -86,8 +86,10 @@ namespace DartGame {
         }
 
         public void PrintAllTurns() {
+            int i = 0;
             foreach(Turns oneTurn in allTurns) {
-                Console.WriteLine(oneTurn);
+                Console.WriteLine("Turn {0}: {1} \n", i, oneTurn);
+                i++;
             }
         }
         //      It makes more sense in the context to return the players name
