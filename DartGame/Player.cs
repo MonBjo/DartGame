@@ -20,29 +20,31 @@ namespace DartGame {
             get { return name; }
             set { name = value; }
         }
-        // NOTE Not needed?? This is confusing AF
+
         public int PlayerScore {
             get { return playerScore; }
             set { playerScore = value; }
         }
-        //      Calculate the total points for the player
+        //      Calculate the current total points for the player
         public int CalculatePoints() {
-            int foo = 0;
+            int _score = 0;
             foreach(Turns oneTurn in allTurns) {
-                foo += oneTurn.GetScore;
+                _score += oneTurn.GetScore;
             }
-            PlayerScore = foo;
-            return foo;
+            PlayerScore = _score;
+            return _score;
             
         }
 
         public int AddThrow(string instructionString) {
             int arrowInt;
             while(true) {
-                Console.Write(instructionString);
+                Console.Write(instructionString + " ");
 
                 string userInput = Console.ReadLine();
                 if(userInput.Length == 0) {
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    Console.WriteLine( $"{instructionString} Random throw {new string(' ', instructionString.Length)}" );
                     Random randomThrow = new Random();
                     arrowInt = randomThrow.Next(highestPoint);
                     break;
@@ -55,6 +57,7 @@ namespace DartGame {
                         }
                         else {
                             DartBoard playerDartBoard = new DartBoard(arrowInt);
+                            arrowInt = playerDartBoard.ArrowStrike;
                             break; // Successful input
                         }
                     }

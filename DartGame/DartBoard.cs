@@ -8,9 +8,14 @@ namespace DartGame {
     class DartBoard {
         // Defining data
         private int[] dartBoardTargets = new int[] { 20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5 };
+        private int arrowStrike;
+
+        public int ArrowStrike {
+            get { return arrowStrike; }
+            set { arrowStrike = value; }
+        }
 
         public DartBoard(int arrowAim) {
-            int arrowStrike = 0;
             int i = 0;
             foreach(int target in dartBoardTargets) {
                 if(target == arrowAim) {
@@ -59,15 +64,3 @@ namespace DartGame {
         }
     }
 }
-/*  TODO: Remove comment
- *  60% träffar
- *  15% den innan
- *  15% den efter
- *  5% slumpad
- *  5% missar helt
- *
- * 20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5
- * 
- * Hantera resultat här?
- * 
- */

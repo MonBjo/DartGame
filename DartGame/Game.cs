@@ -9,9 +9,11 @@ namespace DartGame {
         //      Defining data
         private List<Player> players = new List<Player>();
         internal static string computerAsPlayer = "Computer";
-        // NOTE: If you change name, do not let it start with "A" or "R" as they're already used in the menu.
+        // NOTE: If you change the string of computerAsPlayer, do not let it start with "A", "R" or "Q" as they're already used in the menu.
         
-        //      Start of the game, basicly the menu
+        /*************\
+        |* GAME MENU *| 
+        \*************/
         public void PlayGame() {
             while(true) {
                 Console.Clear();
@@ -27,6 +29,9 @@ namespace DartGame {
                         if(!players.Any()) {
                             Console.Clear();
                             Console.WriteLine("Please add players");
+                            Console.WriteLine("==============================\n" +
+                                              " Press any key to continue...");
+                            Console.ReadKey(true);
                             break;
                         }
                         else {
@@ -84,7 +89,10 @@ namespace DartGame {
                                           "  0 points you have missed the dartboard completly,\n" +
                                           "  or you didn't throw at all.                      \n" +
                                           "  To throw randomly, do not write anything and just\n" +
-                                          "  press [ENTER].");
+                                          "  press [ENTER]. \n" +
+                                          "  \n" +
+                                          "  If your score gets under zero it's called to get \n" +
+                                          "  bust. If you get bust you'll lose your last round.");
 
                         Console.WriteLine(" ==============================\n" +
                                           "  Press any key to continue...");
@@ -103,7 +111,9 @@ namespace DartGame {
                 }
             }
         }
-        //      The actual game // TODO: Make bigger
+        /*******************************\
+        |* HERE STARTS THE ACTUAL GAME *|
+        \*******************************/
         private void DartGame() {
             bool continueGame = true;
             while(true) {
@@ -128,20 +138,20 @@ namespace DartGame {
                         throwOne = rnd.Next(Player.highestPoint);
                         throwTwo = rnd.Next(Player.highestPoint);
                         throwThree = rnd.Next(Player.highestPoint);
-                        Console.WriteLine($"First throw:  {throwOne}\n" +
-                                          $"Second throw: {throwTwo}\n" +
-                                          $"Third throw:  {throwThree}");
+                        Console.WriteLine($"First strike:  {throwOne}\n" +
+                                          $"Second strike: {throwTwo}\n" +
+                                          $"Third strike:  {throwThree}");
                     }
                     //      People's game
                     else {
                         Console.WriteLine($"Write an integer bewteen 0 and {Player.highestPoint} to choose your hit\n");
-                            throwOne = aPlayer.AddThrow("First throw:  ");
-                            throwTwo = aPlayer.AddThrow("Second throw: ");
-                            throwThree = aPlayer.AddThrow("Third throw:  ");
+                            throwOne = aPlayer.AddThrow("First throw:");
+                            throwTwo = aPlayer.AddThrow("Second throw:");
+                            throwThree = aPlayer.AddThrow("Third throw:");
                     }
                     aPlayer.AddTurn(throwOne, throwTwo, throwThree);
 
-                    Console.Write("Throws on this turn: ");
+                    Console.Write("Strikes on this turn: ");
                     aPlayer.PrintLastTurn();
                     aPlayer.CalculatePoints(); // So the if statements get the corret numbers to work with
 
