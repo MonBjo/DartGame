@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DartGame {
     class DartBoard {
@@ -27,12 +23,15 @@ namespace DartGame {
             Console.WriteLine("Strikes: " + arrowStrike);
         }
 
+        /******************************\
+        |* CALCULATING WHERE THE DART *|
+        |* ACTUALLY HITS ON THE BOARD *|
+        \******************************/
         private int StrikeOnDartBoard(int arrowStrike, int index) {
             Random rnd = new Random();
             int chanceToStrike = rnd.Next(100);
-            //Console.WriteLine("Chance of strike: " + chanceToStrike); // Debug data
             
-            if(chanceToStrike > 60 && chanceToStrike <= 75) { // 15%
+            if(chanceToStrike > 60 && chanceToStrike <= 75) { // 15% chance that it strikes the next one
                 if(index == (dartBoardTargets.Length - 1)) { 
                     arrowStrike = dartBoardTargets[0];
                     // Last element in array, jump to the first element
@@ -42,7 +41,7 @@ namespace DartGame {
                 }
             }
 
-            else if(chanceToStrike > 75 && chanceToStrike <= 90) { // 15%
+            else if(chanceToStrike > 75 && chanceToStrike <= 90) { // 15% chance that it strikes the previous one
                 if(index == 0) { 
                     arrowStrike = dartBoardTargets[dartBoardTargets.Length - 1];
                     // First element in array, jump to the last element
@@ -52,14 +51,15 @@ namespace DartGame {
                 }
             }
 
-            else if(chanceToStrike > 90 && chanceToStrike <= 97) { // 7%
+            else if(chanceToStrike > 90 && chanceToStrike <= 97) { // 7% chance that it strikes a random one
                 arrowStrike = rnd.Next(20);
             }
 
-            else if(chanceToStrike > 97 && chanceToStrike <= 100) { // 3%
+            else if(chanceToStrike > 97 && chanceToStrike <= 100) { // 3% chanse to miss the boad
                 arrowStrike = 0;
             }
-            // chanceToStrike <= 60 ... hits the target, nothing happens here.
+
+            // 60% chance to strike the target, nothing happens here
             return arrowStrike;
         }
     }
