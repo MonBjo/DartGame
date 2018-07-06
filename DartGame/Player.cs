@@ -41,22 +41,26 @@ namespace DartGame {
 
                 string userInput = Console.ReadLine();
                 if(userInput.Length == 0) {
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);
-                    Console.WriteLine( $"{instructionString} Random throw {new string(' ', instructionString.Length)}" );
                     Random randomThrow = new Random();
                     arrowInt = randomThrow.Next(highestPoint);
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    Console.WriteLine( $"{instructionString} {arrowInt} (random throw) {new string(' ', instructionString.Length)}" );
                     break;
                 }
                 else {
                     try {
                         arrowInt = Convert.ToInt32(userInput);
-                        if(arrowInt < 0 || arrowInt > highestPoint) { 
+                        if(arrowInt < 0 || arrowInt > highestPoint) {
                             Console.WriteLine("Please write an integer between 0 and " + highestPoint);
+                        }
+                        else if(arrowInt == 0) {
+                            Console.WriteLine("Didn't throw");
+                            break; // Successful input
                         }
                         else {
                             DartBoard playerDartBoard = new DartBoard(arrowInt);
                             arrowInt = playerDartBoard.ArrowStrike;
-                            break; // Successful input
+                            break; // Also successful input
                         }
                     }
                     catch(FormatException) {
